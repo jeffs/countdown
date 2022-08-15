@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:16.11.49"],\
             ["@types/react", "npm:18.0.17"],\
             ["@types/react-dom", "npm:18.0.6"],\
+            ["@types/testing-library__jest-dom", "npm:5.14.5"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:3e1244e50b609683c9254c0b5ca08ea5184d35c9e6066a521119f6d09b792ff44d35bdfbfe59d94964e493554b18aa66279ad45c32c9e4f6b1bfc686385c1c5a#npm:18.2.0"],\
             ["react-scripts", "virtual:3e1244e50b609683c9254c0b5ca08ea5184d35c9e6066a521119f6d09b792ff44d35bdfbfe59d94964e493554b18aa66279ad45c32c9e4f6b1bfc686385c1c5a#npm:5.0.1"],\
@@ -12202,6 +12203,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:16.11.49"],\
             ["@types/react", "npm:18.0.17"],\
             ["@types/react-dom", "npm:18.0.6"],\
+            ["@types/testing-library__jest-dom", "npm:5.14.5"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:3e1244e50b609683c9254c0b5ca08ea5184d35c9e6066a521119f6d09b792ff44d35bdfbfe59d94964e493554b18aa66279ad45c32c9e4f6b1bfc686385c1c5a#npm:18.2.0"],\
             ["react-scripts", "virtual:3e1244e50b609683c9254c0b5ca08ea5184d35c9e6066a521119f6d09b792ff44d35bdfbfe59d94964e493554b18aa66279ad45c32c9e4f6b1bfc686385c1c5a#npm:5.0.1"],\
