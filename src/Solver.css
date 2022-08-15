@@ -1,3 +1,20 @@
-.row {
+:root {
+  --solver-tile-size: 48px;
+}
+
+.solver__dialog {
+}
+
+.solver__row {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.solver__tile {
+  font-size: 12px;
+  font-weight: bold;
+  height: var(--solver-tile-size);
+  margin: 4px;
+  width: var(--solver-tile-size);
 }
