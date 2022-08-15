@@ -31,8 +31,5 @@ code {
 
 body {
   background-color: var(--rich-black-fogra-29);
-}
-
-h1 {
   color: var(--blanched-almond);
 }

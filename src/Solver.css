@@ -1,20 +1,22 @@
 :root {
-  --solver-tile-size: 48px;
+  --solver-place-size: 48px;
 }
 
 .solver__dialog {
+  display: flex;
+  flex-direction: column;
 }
 
-.solver__row {
+.solver__board {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /*justify-content: center;*/
 }
 
-.solver__tile {
+.solver__place {
   font-size: 12px;
   font-weight: bold;
-  height: var(--solver-tile-size);
+  height: var(--solver-place-size);
   margin: 4px;
-  width: var(--solver-tile-size);
+  width: var(--solver-place-size);
 }
