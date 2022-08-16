@@ -4,10 +4,6 @@ import "./Solver.css";
 
 const PLACE_COUNT: number = 6;
 
-//const NUMBERS: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 75, 100];
-const BIG_NUMBERS: Array<number> = [100, 75, 50, 25];
-const LITTLE_NUMBERS: Array<number> = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-
 interface ChooserRowProps {
   numbers: Array<number>;
   onChange: (value: number) => void;
@@ -50,16 +46,16 @@ interface PlaceProps {
   value?: number;
 }
 
-function Place({ id, isCurrent, onClick, value }: PlaceProps) {
+function Place(props: PlaceProps) {
   let className = "solver__place";
-  let title = `Place #${id}`;
-  if (isCurrent) {
+  let title = `Place #${props.id}`;
+  if (props.isCurrent) {
     className += " solver__place--current";
     title += " (current)";
   }
   return (
-    <button className={className} onClick={onClick} title={title}>
-      {value}
+    <button className={className} onClick={props.onClick} title={title}>
+      {props.value}
     </button>
   );
 }
