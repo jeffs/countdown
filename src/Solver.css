@@ -55,3 +55,7 @@
   text-align: center;
   height: var(--solver-place-size);
 }
+
+.solver__target_input--current {
+  background-color: var(--highlight);
+}

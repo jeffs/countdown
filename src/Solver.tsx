@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 
 import Card from "./Card";
 
@@ -56,8 +56,8 @@ function Place(props: {
 }
 
 function Board(props: {
-  onClick?: (placeId: number) => void;
-  placeId?: number;
+  onClick?: (placeID: number) => void;
+  placeID?: number;
   values: Array<number | undefined>;
 }) {
   return (
@@ -68,7 +68,7 @@ function Board(props: {
             id={index + 1}
             key={index}
             onClick={() => props.onClick?.(index)}
-            isCurrent={index === props.placeId}
+            isCurrent={index === props.placeID}
             value={value}
           />
         ))}
@@ -77,13 +77,30 @@ function Board(props: {
   );
 }
 
-function Target() {
+function Target(props: {
+  current?: boolean; // Whether to highlight as an input receiver.
+  onFocus?: () => void;
+}) {
+  let inputRef: HTMLInputElement | null;
+  useEffect(() => {
+    if (props.current) {
+      inputRef?.focus();
+    }
+  }, [props.current]);
+  let inputClass = "solver__target_input";
+  if (props.current) {
+    inputClass += " solver__target_input--current";
+  }
   return (
     <Card header="Target">
       <div className="solver__target_content">
         <input
-          className="solver__target_input"
+          className={inputClass}
+          onFocus={props.onFocus}
           placeholder="???"
+          ref={(elem) => {
+            inputRef = elem;
+          }}
           type="number"
         />
       </div>
@@ -91,25 +108,81 @@ function Target() {
   );
 }
 
+// At any time, input may be directed to either Places (which hold tile
+// values), or the Target (which holds the three-digit numeric goal).
+enum ReceiverKind {
+  Place,
+  Target,
+}
+
+interface ReceiverPlace {
+  kind: ReceiverKind.Place;
+  id: number;
+}
+
+interface ReceiverTarget {
+  kind: ReceiverKind.Target;
+}
+
+// Descriptor indicating which control will receive input.
+type Receiver = ReceiverPlace | ReceiverTarget;
+
 export default function Solver() {
-  const [placeId, setPlaceId] = useState<number>(0);
+  const [receiver, setReceiver] = useState<Receiver>({
+    kind: ReceiverKind.Place,
+    id: 0,
+  });
+
   const [values, setValues] = useState<Array<number | undefined>>(
     Array(PLACE_COUNT).fill(undefined)
   );
 
-  function handleChange(value: number) {
-    const newValues = [...values];
-    newValues[placeId] = value;
-    setPlaceId((placeId + 1) % PLACE_COUNT);
-    setValues(newValues);
+  function handleChoice(value: number) {
+    switch (receiver.kind) {
+      case ReceiverKind.Place:
+        const newValues = [...values];
+        newValues[receiver.id] = value;
+        setValues(newValues);
+        setReceiver(
+          receiver.id + 1 < PLACE_COUNT
+            ? { kind: ReceiverKind.Place, id: receiver.id + 1 }
+            : { kind: ReceiverKind.Target }
+        );
+        break;
+      case ReceiverKind.Target:
+        console.warn("Tile chosen, but receiver is Target, not a Place.");
+        break;
+    }
+  }
+
+  function handleBoardClick(id: number) {
+    setReceiver({ kind: ReceiverKind.Place, id });
+  }
+
+  function handleTargetFocus() {
+    setReceiver({ kind: ReceiverKind.Target });
   }
 
   return (
     <>
       <h1>Solver</h1>
-      <Target />
-      <Board onClick={setPlaceId} placeId={placeId} values={values} />
-      <Chooser onChange={handleChange} />
+      {receiver.kind === ReceiverKind.Place ? (
+        <>
+          <Target onFocus={handleTargetFocus} />
+          <Board
+            onClick={handleBoardClick}
+            placeID={receiver.id}
+            values={values}
+          />
+          <Chooser onChange={handleChoice} />
+        </>
+      ) : (
+        <>
+          <Target current onFocus={handleTargetFocus} />
+          <Board onClick={handleBoardClick} values={values} />
+          <Chooser onChange={() => {}} />
+        </>
+      )}
     </>
   );
 }
