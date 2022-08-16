@@ -40,9 +40,8 @@
   height: var(--solver-place-size);
   margin: var(--solver-place-gap);
   width: var(--solver-place-size);
-  border: 4px solid var(--ming);
 }
 
 .solver__place--current {
-  border-color: var(--amber-sae-ece);
+  background-color: var(--blanched-almond);
 }
