@@ -6,12 +6,10 @@ import "./Solver.css";
 
 const PLACE_COUNT: number = 6;
 
-interface ChooserRowProps {
+function ChooserRow(props: {
   numbers: Array<number>;
   onChange: (value: number) => void;
-}
-
-function ChooserRow(props: ChooserRowProps) {
+}) {
   return (
     <div className="solver__chooser_row">
       {props.numbers.map((value, index) => (
@@ -28,11 +26,7 @@ function ChooserRow(props: ChooserRowProps) {
   );
 }
 
-interface ChooserProps {
-  onChange: (value: number) => void;
-}
-
-function Chooser(props: ChooserProps) {
+function Chooser(props: { onChange: (value: number) => void }) {
   return (
     <Card className="solver__chooser" header="Available tiles">
       <ChooserRow numbers={[100, 75, 50, 25]} {...props} />
@@ -42,14 +36,12 @@ function Chooser(props: ChooserProps) {
   );
 }
 
-interface PlaceProps {
+function Place(props: {
   id: number;
   isCurrent?: boolean;
   onClick?: () => void;
   value?: number;
-}
-
-function Place(props: PlaceProps) {
+}) {
   let className = "solver__place";
   let title = `Place #${props.id}`;
   if (props.isCurrent) {
@@ -63,13 +55,11 @@ function Place(props: PlaceProps) {
   );
 }
 
-interface BoardProps {
+function Board(props: {
   onClick?: (placeId: number) => void;
   placeId?: number;
   values: Array<number | undefined>;
-}
-
-function Board(props: BoardProps) {
+}) {
   return (
     <Card className="solver__board" header="Chosen tiles">
       <div className="solver__places">

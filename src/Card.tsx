@@ -10,9 +10,7 @@ export default function Card(props: {
   const className = props.className ? `card ${props.className}` : "card";
   return (
     <section className={className}>
-      {props.header && (
-        <h2 className="card__header">{props.header}</h2>
-      )}
+      {props.header && <h2 className="card__header">{props.header}</h2>}
       {props.children}
     </section>
   );
