@@ -42,3 +42,16 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.solver__target_content {
+  display: flex;
+  justify-content: stretch;
+}
+
+.solver__target_input {
+  appearance: textfield; /* Hide up/down steppers. */
+  flex: 1;
+  font-size: 20px;
+  text-align: center;
+  height: var(--solver-place-size);
+}

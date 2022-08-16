@@ -77,6 +77,20 @@ function Board(props: {
   );
 }
 
+function Target() {
+  return (
+    <Card header="Target">
+      <div className="solver__target_content">
+        <input
+          className="solver__target_input"
+          placeholder="???"
+          type="number"
+        />
+      </div>
+    </Card>
+  );
+}
+
 export default function Solver() {
   const [placeId, setPlaceId] = useState<number>(0);
   const [values, setValues] = useState<Array<number | undefined>>(
@@ -93,6 +107,7 @@ export default function Solver() {
   return (
     <>
       <h1>Solver</h1>
+      <Target />
       <Board onClick={setPlaceId} placeId={placeId} values={values} />
       <Chooser onChange={handleChange} />
     </>
