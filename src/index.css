@@ -23,9 +23,9 @@ code {
   --white: #fcfcfcff;
 
   --bottom: var(--rich-black-fogra-29);
-  --background: var(--onyx);
-  --primary: var(--cadet);
-  --highlight: var(--white);
+  --background: var(--raisin-black);
+  --primary: var(--white);
+  --highlight: lightyellow;
 
   --space: 4px;
 }
