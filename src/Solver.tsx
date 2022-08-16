@@ -7,6 +7,7 @@ import "./Solver.css";
 const PLACE_COUNT: number = 6;
 
 function ChooserRow(props: {
+  disabled?: boolean;
   numbers: Array<number>;
   onChange: (value: number) => void;
 }) {
@@ -16,6 +17,7 @@ function ChooserRow(props: {
         <button
           autoFocus={value === 100}
           className="solver__chooser_value"
+          disabled={props.disabled}
           key={index}
           onClick={() => props.onChange(value)}
         >
@@ -26,7 +28,10 @@ function ChooserRow(props: {
   );
 }
 
-function Chooser(props: { onChange: (value: number) => void }) {
+function Chooser(props: {
+  disabled?: boolean;
+  onChange: (value: number) => void;
+}) {
   return (
     <Card className="solver__chooser" header="Available tiles">
       <ChooserRow numbers={[100, 75, 50, 25]} {...props} />
@@ -180,7 +185,7 @@ export default function Solver() {
         <>
           <Target current onFocus={handleTargetFocus} />
           <Board onClick={handleBoardClick} values={values} />
-          <Chooser onChange={() => {}} />
+          <Chooser disabled onChange={handleChoice} />
         </>
       )}
     </>
