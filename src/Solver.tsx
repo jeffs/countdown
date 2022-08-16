@@ -8,36 +8,38 @@ const PLACE_COUNT: number = 6;
 const BIG_NUMBERS: Array<number> = [100, 75, 50, 25];
 const LITTLE_NUMBERS: Array<number> = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
+interface ChooserRowProps {
+  numbers: Array<number>;
+  onChange: (value: number) => void;
+}
+
+function ChooserRow(props: ChooserRowProps) {
+  return (
+    <div className="solver__chooser_row">
+      {props.numbers.map((value, index) => (
+        <button
+          className="solver__chooser_value"
+          key={index}
+          onClick={() => props.onChange(value)}
+        >
+          {value}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 interface ChooserProps {
   onChange: (value: number) => void;
 }
 
 function Chooser(props: ChooserProps) {
   return (
-    <>
-      <div className="solver__chooser_row">
-        {BIG_NUMBERS.map((value, index) => (
-          <button
-            className="solver__chooser_value"
-            key={index}
-            onClick={() => props.onChange(value)}
-          >
-            {value}
-          </button>
-        ))}
-      </div>
-      <div className="solver__chooser_row">
-        {LITTLE_NUMBERS.map((value, index) => (
-          <button
-            className="solver__chooser_value"
-            key={index}
-            onClick={() => props.onChange(value)}
-          >
-            {value}
-          </button>
-        ))}
-      </div>
-    </>
+    <div className="solver__chooser">
+      <ChooserRow numbers={[100, 75, 50, 25]} {...props} />
+      <ChooserRow numbers={[10, 9, 8, 7, 6]} {...props} />
+      <ChooserRow numbers={[5, 4, 3, 2, 1]} {...props} />
+    </div>
   );
 }
 

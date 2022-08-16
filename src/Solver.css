@@ -1,24 +1,37 @@
 :root {
   --solver-place-size: 86px;
   --solver-place-gap: 4px;
-}
 
-.solver__chooser_row {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: calc((var(--solver-place-size) + 8px) * 6 - 4px);
-}
-
-.solver__chooser_value {
-  flex-grow: 1;
-  height: calc(var(--solver-place-size) / 2);
-  margin: calc(var(--solver-place-gap) / 2);
+  /* Match the width of 6 tiles. */
+  --solver-chooser-width: calc(
+    (var(--solver-place-size) + var(--solver-place-gap) * 2) * 6
+    - var(--solver-place-gap)
+  );
 }
 
 .solver__board {
   display: flex;
   flex-wrap: wrap;
-  /*justify-content: center;*/
+  justify-content: center;
+}
+
+.solver__chooser {
+  max-width: var(--solver-chooser-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.solver__chooser_row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.solver__chooser_value {
+  flex-grow: 1;
+  font-size: 16px;
+  height: calc(var(--solver-place-size) / 2);
+  margin: calc(var(--solver-place-gap) / 2);
 }
 
 .solver__place {
