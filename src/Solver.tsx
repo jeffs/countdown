@@ -1,5 +1,7 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
 
+import Card from "./Card";
+
 import "./Solver.css";
 
 const PLACE_COUNT: number = 6;
@@ -32,11 +34,11 @@ interface ChooserProps {
 
 function Chooser(props: ChooserProps) {
   return (
-    <div className="solver__chooser">
+    <Card className="solver__chooser">
       <ChooserRow numbers={[100, 75, 50, 25]} {...props} />
       <ChooserRow numbers={[10, 9, 8, 7, 6]} {...props} />
       <ChooserRow numbers={[5, 4, 3, 2, 1]} {...props} />
-    </div>
+    </Card>
   );
 }
 
@@ -69,7 +71,7 @@ interface BoardProps {
 
 function Board(props: BoardProps) {
   return (
-    <div className="solver__board">
+    <Card className="solver__board">
       {props.values.map((value, index) => (
         <Place
           id={index + 1}
@@ -79,7 +81,7 @@ function Board(props: BoardProps) {
           value={value}
         />
       ))}
-    </div>
+    </Card>
   );
 }
 

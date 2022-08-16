@@ -1,11 +1,9 @@
 :root {
   --solver-place-size: 86px;
-  --solver-place-gap: 4px;
 
   /* Match the width of 6 tiles. */
-  --solver-chooser-width: calc(
-    (var(--solver-place-size) + var(--solver-place-gap) * 2) * 6
-    - var(--solver-place-gap)
+  --solver-board-width: calc(
+    (var(--solver-place-size) + var(--space) * 2) * 6
   );
 }
 
@@ -13,10 +11,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--solver-board-width);
 }
 
 .solver__chooser {
-  max-width: var(--solver-chooser-width);
+  max-width: var(--solver-board-width);
   margin-left: auto;
   margin-right: auto;
 }
@@ -31,17 +32,17 @@
   flex: 1 1 0px; /* Make all values in a row the same size. */
   font-size: 16px;
   height: calc(var(--solver-place-size) / 2);
-  margin: calc(var(--solver-place-gap) / 2);
+  margin: calc(var(--space) / 2);
 }
 
 .solver__place {
   font-size: 20px;
   font-weight: bold;
   height: var(--solver-place-size);
-  margin: var(--solver-place-gap);
+  margin: var(--space);
   width: var(--solver-place-size);
 }
 
 .solver__place--current {
-  background-color: var(--blanched-almond);
+  background-color: var(--highlight);
 }

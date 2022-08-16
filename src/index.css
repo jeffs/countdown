@@ -15,21 +15,22 @@ code {
 
 /* Custom */
 :root {
-  --dark-slate-gray: #404e4dff;
-  --dark-liver: #63595cff;
-  --rhythm: #646881ff;
-  --maximum-blue-green: #62bec1ff;
-  --vivid-sky-blue: #5ad2f4ff;
+  /* https://coolors.co/02111b-3f4045-30292f-5d737e-fcfcfc */
+  --rich-black-fogra-29: #02111bff;
+  --onyx: #3f4045ff;
+  --raisin-black: #30292fff;
+  --cadet: #5d737eff;
+  --white: #fcfcfcff;
 
-  /* https://coolors.co/001524-15616d-ffecd1-ff7d00-78290f */
-  --rich-black-fogra-29: #001524ff;
-  --ming: #15616dff;
-  --blanched-almond: #ffecd1ff;
-  --amber-sae-ece: #ff7d00ff;
-  --kobe: #78290fff;
+  --bottom: var(--rich-black-fogra-29);
+  --background: var(--onyx);
+  --primary: var(--cadet);
+  --highlight: var(--white);
+
+  --space: 4px;
 }
 
 body {
-  background-color: var(--rich-black-fogra-29);
-  color: var(--blanched-almond);
+  background-color: var(--bottom);
+  color: var(--primary);
 }
