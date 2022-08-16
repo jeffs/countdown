@@ -38,13 +38,20 @@ function Dialog(props: DialogProps) {
 
 interface PlaceProps {
   id: number;
+  isCurrent?: boolean;
   onClick?: () => void;
   value?: number;
 }
 
-function Place({ id, onClick, value }: PlaceProps) {
+function Place({ id, isCurrent, onClick, value }: PlaceProps) {
+  let className = "solver__place";
+  let title = `Place #${id}`;
+  if (isCurrent) {
+    className += " solver__place--current";
+    title += " (current)";
+  }
   return (
-    <button className="solver__place" onClick={onClick} title={`Place #${id}`}>
+    <button className={className} onClick={onClick} title={title}>
       {value}
     </button>
   );
@@ -52,17 +59,19 @@ function Place({ id, onClick, value }: PlaceProps) {
 
 interface BoardProps {
   onClick?: (placeId: number) => void;
+  placeId?: number;
   values: Array<number | undefined>;
 }
 
-function Board({ onClick, values }: BoardProps) {
+function Board(props: BoardProps) {
   return (
     <div className="solver__board">
-      {values.map((value, index) => (
+      {props.values.map((value, index) => (
         <Place
           id={index + 1}
           key={index}
-          onClick={() => onClick?.(index)}
+          onClick={() => props.onClick?.(index)}
+          isCurrent={index === props.placeId}
           value={value}
         />
       ))}
@@ -85,7 +94,7 @@ export default function Solver() {
   return (
     <>
       <h1>Solver</h1>
-      <Board onClick={setPlaceId} values={values} />
+      <Board onClick={setPlaceId} placeId={placeId} values={values} />
       <Dialog
         onChange={handleChange}
         placeId={placeId}
