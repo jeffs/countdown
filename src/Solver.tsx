@@ -33,7 +33,11 @@ function Chooser(props: {
   onChange: (value: number) => void;
 }) {
   return (
-    <Card className="solver__chooser" header="Available tiles">
+    <Card
+      disabled={props.disabled}
+      className="solver__chooser"
+      header="Available tiles"
+    >
       <ChooserRow numbers={[100, 75, 50, 25]} {...props} />
       <ChooserRow numbers={[10, 9, 8, 7, 6]} {...props} />
       <ChooserRow numbers={[5, 4, 3, 2, 1]} {...props} />
