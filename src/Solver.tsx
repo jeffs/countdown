@@ -14,6 +14,7 @@ function ChooserRow(props: ChooserRowProps) {
     <div className="solver__chooser_row">
       {props.numbers.map((value, index) => (
         <button
+          autoFocus={value === 100}
           className="solver__chooser_value"
           key={index}
           onClick={() => props.onChange(value)}
