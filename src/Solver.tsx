@@ -110,7 +110,8 @@ function Target(props: {
           ref={(elem) => {
             inputRef = elem;
           }}
-          type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
         />
       </div>
     </Card>

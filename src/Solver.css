@@ -53,7 +53,6 @@
 }
 
 .solver__target_input {
-  appearance: textfield; /* Hide up/down steppers. */
   flex: 1;
   font-size: 20px;
   height: var(--solver-place-size);
