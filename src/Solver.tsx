@@ -1,6 +1,7 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 
 import Card from "./Card";
+import Wasm from "./Wasm";
 
 import "./Solver.css";
 
@@ -162,7 +163,7 @@ interface ReceiverTarget {
 // Descriptor indicating which control will receive input.
 type Receiver = ReceiverPlace | ReceiverTarget;
 
-export default function Solver() {
+export default function Solver(props: { wasm?: Wasm }) {
   const [receiver, setReceiver] = useState<Receiver>({
     kind: ReceiverKind.Place,
     id: 0,
@@ -173,6 +174,12 @@ export default function Solver() {
   const [values, setValues] = useState<Array<number | undefined>>(
     Array(PLACE_COUNT).fill(undefined)
   );
+
+  useEffect(() => {
+    if (target !== undefined && target >= 100) {
+      alert(`${target} * 2 = ${props?.wasm?.add(target, target)}`);
+    }
+  }, [target]);
 
   function handleChoice(value: number) {
     console.assert(

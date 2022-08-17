@@ -46,6 +46,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:3e1244e50b609683c9254c0b5ca08ea5184d35c9e6066a521119f6d09b792ff44d35bdfbfe59d94964e493554b18aa66279ad45c32c9e4f6b1bfc686385c1c5a#npm:18.2.0"],\
             ["react-scripts", "virtual:3e1244e50b609683c9254c0b5ca08ea5184d35c9e6066a521119f6d09b792ff44d35bdfbfe59d94964e493554b18aa66279ad45c32c9e4f6b1bfc686385c1c5a#npm:5.0.1"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"],\
+            ["wasm-lib", "file:./wasm-lib/pkg#./wasm-lib/pkg::hash=797809&locator=pnp-ts-solver%40workspace%3A."],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -12210,6 +12211,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:3e1244e50b609683c9254c0b5ca08ea5184d35c9e6066a521119f6d09b792ff44d35bdfbfe59d94964e493554b18aa66279ad45c32c9e4f6b1bfc686385c1c5a#npm:18.2.0"],\
             ["react-scripts", "virtual:3e1244e50b609683c9254c0b5ca08ea5184d35c9e6066a521119f6d09b792ff44d35bdfbfe59d94964e493554b18aa66279ad45c32c9e4f6b1bfc686385c1c5a#npm:5.0.1"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"],\
+            ["wasm-lib", "file:./wasm-lib/pkg#./wasm-lib/pkg::hash=797809&locator=pnp-ts-solver%40workspace%3A."],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -16330,6 +16332,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["walker", "npm:1.0.8"],\
             ["makeerror", "npm:1.0.12"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["wasm-lib", [\
+        ["file:./wasm-lib/pkg#./wasm-lib/pkg::hash=797809&locator=pnp-ts-solver%40workspace%3A.", {\
+          "packageLocation": "./.yarn/cache/wasm-lib-file-db7716c22e-752c10a288.zip/node_modules/wasm-lib/",\
+          "packageDependencies": [\
+            ["wasm-lib", "file:./wasm-lib/pkg#./wasm-lib/pkg::hash=797809&locator=pnp-ts-solver%40workspace%3A."]\
           ],\
           "linkType": "HARD"\
         }]\
