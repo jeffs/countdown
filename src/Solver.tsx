@@ -173,7 +173,7 @@ export default function Solver() {
   }
 
   return (
-    <>
+    <div className="solver">
       <h1>Solver</h1>
       {receiver.kind === ReceiverKind.Place ? (
         <>
@@ -192,6 +192,6 @@ export default function Solver() {
           <Chooser disabled onChange={handleChoice} />
         </>
       )}
-    </>
+    </div>
   );
 }

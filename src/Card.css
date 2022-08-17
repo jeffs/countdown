@@ -1,14 +1,11 @@
 .card {
   background: var(--background);
   border-radius: var(--space);
-  margin: var(--space);
   padding: var(--space);
 }
 
 .card__header {
   margin: 0 var(--space) 0 var(--space);
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 .card__header--disabled {

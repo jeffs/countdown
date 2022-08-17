@@ -1,15 +1,19 @@
 :root {
+  /* Places are where chosen tile values are shown. This small enough to show
+   * all six across on desktop or iPad, and big enough to wrap (becoming two
+   * rows of three) on iPhone.  If you resize a desktop browser to be narrow,
+   * but not as narrow as a cell phone, you can get uneven wrapping; e.g., five
+   * places in the first row, but only one place in the second row.  C'est la
+   * vie.
+   */
   --solver-place-size: 86px;
 }
 
-.solver__board {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.solver__chooser {
-  margin-left: auto;
-  margin-right: auto;
+.solver {
+  align-content: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
 }
 
 .solver__chooser_row {
@@ -52,8 +56,10 @@
   appearance: textfield; /* Hide up/down steppers. */
   flex: 1;
   font-size: 20px;
-  text-align: center;
   height: var(--solver-place-size);
+  margin-left: var(--space);
+  margin-right: var(--space);
+  text-align: center;
 }
 
 .solver__target_input--current {
