@@ -88,7 +88,9 @@ function Board(props: {
 
 function Target(props: {
   current?: boolean; // Whether to highlight as an input receiver.
+  onChange?: (value?: number) => void;
   onFocus?: () => void;
+  value?: number;
 }) {
   let inputRef: HTMLInputElement | null;
   useEffect(() => {
@@ -96,22 +98,45 @@ function Target(props: {
       inputRef?.focus();
     }
   }, [props.current]);
+
   let inputClass = "solver__target_input";
   if (props.current) {
     inputClass += " solver__target_input--current";
   }
+
+  let handleChange;
+  if (props.onChange) {
+    const onChange = props.onChange as (value?: number) => void;
+    handleChange = function handleChange(event: ChangeEvent<HTMLInputElement>) {
+      const text = event.target.value.trim();
+      if (text.length > 3) {
+        return;
+      } else if (text.length === 0) {
+        onChange(undefined);
+      } else {
+        const value = parseInt(text);
+        if (isNaN(value)) {
+          return;
+        }
+        onChange(value);
+      }
+    }
+  }
+
   return (
     <Card header="Target">
       <div className="solver__target_content">
         <input
           className={inputClass}
+          onChange={handleChange}
           onFocus={props.onFocus}
           placeholder="???"
           ref={(elem) => {
             inputRef = elem;
           }}
           inputMode="numeric"
-          pattern="[0-9]*"
+          pattern="[1-9][0-9][0-9]"
+          value={props.value ?? ""}
         />
       </div>
     </Card>
@@ -143,6 +168,8 @@ export default function Solver() {
     id: 0,
   });
 
+  const [target, setTarget] = useState<number>();
+
   const [values, setValues] = useState<Array<number | undefined>>(
     Array(PLACE_COUNT).fill(undefined)
   );
@@ -173,12 +200,20 @@ export default function Solver() {
     setReceiver({ kind: ReceiverKind.Target });
   }
 
+  function handleTargetChange(value?: number) {
+    setTarget(value);
+  }
+
   return (
     <div className="solver">
       <h1>Solver</h1>
       {receiver.kind === ReceiverKind.Place ? (
         <>
-          <Target onFocus={handleTargetFocus} />
+          <Target
+            onChange={handleTargetChange}
+            onFocus={handleTargetFocus}
+            value={target}
+          />
           <Board
             onClick={handleBoardClick}
             placeID={receiver.id}
@@ -188,7 +223,12 @@ export default function Solver() {
         </>
       ) : (
         <>
-          <Target current onFocus={handleTargetFocus} />
+          <Target
+            current
+            onChange={handleTargetChange}
+            onFocus={handleTargetFocus}
+            value={target}
+          />
           <Board onClick={handleBoardClick} values={values} />
           <Chooser disabled onChange={handleChoice} />
         </>
