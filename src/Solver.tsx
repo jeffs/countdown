@@ -87,20 +87,20 @@ function Board(props: {
 }
 
 function Target(props: {
-  current?: boolean; // Whether to highlight as an input receiver.
+  isCurrent?: boolean; // Whether to highlight as an input receiver.
   onChange?: (value?: number) => void;
   onFocus?: () => void;
   value?: number;
 }) {
   let inputRef: HTMLInputElement | null;
   useEffect(() => {
-    if (props.current) {
+    if (props.isCurrent) {
       inputRef?.focus();
     }
-  }, [props.current]);
+  }, [props.isCurrent]);
 
   let inputClass = "solver__target_input";
-  if (props.current) {
+  if (props.isCurrent) {
     inputClass += " solver__target_input--current";
   }
 
@@ -120,7 +120,7 @@ function Target(props: {
         }
         onChange(value);
       }
-    }
+    };
   }
 
   return (
@@ -175,21 +175,19 @@ export default function Solver() {
   );
 
   function handleChoice(value: number) {
-    switch (receiver.kind) {
-      case ReceiverKind.Place:
-        const newValues = [...values];
-        newValues[receiver.id] = value;
-        setValues(newValues);
-        setReceiver(
-          receiver.id + 1 < PLACE_COUNT
-            ? { kind: ReceiverKind.Place, id: receiver.id + 1 }
-            : { kind: ReceiverKind.Target }
-        );
-        break;
-      case ReceiverKind.Target:
-        console.warn("Tile chosen, but receiver is Target, not a Place.");
-        break;
-    }
+    console.assert(
+      receiver.kind === ReceiverKind.Place,
+      "Can't choose tile unless receiver is a Place."
+    );
+    const placeID = (receiver as ReceiverPlace).id;
+    const newValues = [...values];
+    newValues[placeID] = value;
+    setValues(newValues);
+    setReceiver(
+      placeID + 1 < PLACE_COUNT
+        ? { kind: ReceiverKind.Place, id: placeID + 1 }
+        : { kind: ReceiverKind.Target }
+    );
   }
 
   function handleBoardClick(id: number) {
@@ -204,35 +202,23 @@ export default function Solver() {
     setTarget(value);
   }
 
+  const isTargetCurrent = receiver.kind === ReceiverKind.Target;
+
   return (
     <div className="solver">
       <h1>Solver</h1>
-      {receiver.kind === ReceiverKind.Place ? (
-        <>
-          <Target
-            onChange={handleTargetChange}
-            onFocus={handleTargetFocus}
-            value={target}
-          />
-          <Board
-            onClick={handleBoardClick}
-            placeID={receiver.id}
-            values={values}
-          />
-          <Chooser onChange={handleChoice} />
-        </>
-      ) : (
-        <>
-          <Target
-            current
-            onChange={handleTargetChange}
-            onFocus={handleTargetFocus}
-            value={target}
-          />
-          <Board onClick={handleBoardClick} values={values} />
-          <Chooser disabled onChange={handleChoice} />
-        </>
-      )}
+      <Target
+        isCurrent={isTargetCurrent}
+        onChange={handleTargetChange}
+        onFocus={handleTargetFocus}
+        value={target}
+      />
+      <Board
+        onClick={handleBoardClick}
+        placeID={isTargetCurrent ? undefined : receiver.id}
+        values={values}
+      />
+      <Chooser disabled={isTargetCurrent} onChange={handleChoice} />
     </div>
   );
 }
