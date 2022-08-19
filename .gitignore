@@ -30,3 +30,7 @@ yarn-error.log*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# generated
+/public/wasm_lib.js
+/public/wasm_worker_bg.wasm

@@ -6,22 +6,22 @@ export default async function WasmSolveWorker(): Promise<SolveWorker> {
   // from the wasm-pack command used to build our WebAssembly, and can use an
   // ordinary import (rather than importScripts) in the worker source file
   // (WasmSolveWorkerImp.js).
-  const worker = new Worker("WasmSolveWorkerImp.js", { type: "module" });
+  const worker = new Worker("wasm_worker.js", { type: "module" });
 
   worker.addEventListener("message", ({ data }) => {
     switch (data.kind) {
-      case "Add":
+      case "Challenge":
         console.log(`answer: ${data.answer}`);
         break;
       default:
-        console.warn(`{data.kind}: bad response kind`);
+        console.warn(`${data.kind}: bad response kind`);
         break;
     }
   });
 
   return {
-    postAdd() {
-      worker.postMessage({ kind: "Add", left: 4, right: 2 });
+    postChallenge(target: number, values: Array<number>) {
+      worker.postMessage({ kind: "Challenge", target, values });
     },
   };
 }

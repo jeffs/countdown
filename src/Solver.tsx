@@ -176,11 +176,10 @@ export default function Solver(props: { worker?: SolveWorker }) {
   );
 
   useEffect(() => {
-    if (target !== undefined && target >= 100) {
-      // TODO Post target and values to worker.
-      props.worker?.postAdd(target, target);
+    if (target !== undefined && target >= 100 && !values.includes(undefined)) {
+      props.worker?.postChallenge(target, values as Array<number>);
     }
-  }, [target]);
+  }, [target, values]);
 
   function handleChoice(value: number) {
     console.assert(

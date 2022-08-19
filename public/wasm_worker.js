@@ -5,10 +5,11 @@ async function main() {
 
   addEventListener("message", ({ data }) => {
     switch (data.kind) {
-      case 'Add':
-        const answer = wasm_bindgen.add(data.left, data.right);
+      case 'Challenge': {
+        const answer = wasm_bindgen.solve(data.target, data.values);
         postMessage({ ...data, answer });
         break;
+      }
       default:
         console.warn(`{data.kind}: bad request kind`);
         break;
