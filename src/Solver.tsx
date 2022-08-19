@@ -163,7 +163,57 @@ interface ReceiverTarget {
 // Descriptor indicating which control will receive input.
 type Receiver = ReceiverPlace | ReceiverTarget;
 
+enum AnswerStatusKind {
+  Empty,
+  Solving,
+  Solved,
+}
+
+interface AnswerStatusEmpty {
+  kind: AnswerStatusKind.Empty;
+}
+
+interface AnswerStatusSolving {
+  kind: AnswerStatusKind.Solving;
+}
+
+interface AnswerStatusSolved {
+  kind: AnswerStatusKind.Solved;
+  answer: number;
+}
+
+type AnswerStatus =
+  | AnswerStatusEmpty
+  | AnswerStatusSolving
+  | AnswerStatusSolved;
+
+function Answer(props: { status: AnswerStatus }) {
+  const content = (function () {
+    switch (props.status.kind) {
+      case AnswerStatusKind.Empty:
+        return (
+          <p className="solver__answer_content solver__answer_content--empty">
+            I await your challenge.
+          </p>
+        );
+      case AnswerStatusKind.Solving:
+        return (
+          <p className="solver__answer_content solver__answer_content--solving">
+            Solving...
+          </p>
+        );
+      case AnswerStatusKind.Solved:
+        return <p className="solver__answer_content">{props.status.answer}</p>;
+    }
+  })();
+  return <Card header="Answer">{content}</Card>;
+}
+
 export default function Solver(props: { worker?: SolveWorker }) {
+  const [answerStatus, setAnswerStatus] = useState<AnswerStatus>({
+    kind: AnswerStatusKind.Empty,
+  });
+
   const [receiver, setReceiver] = useState<Receiver>({
     kind: ReceiverKind.Place,
     id: 0,
@@ -175,9 +225,13 @@ export default function Solver(props: { worker?: SolveWorker }) {
     Array(PLACE_COUNT).fill(undefined)
   );
 
+  // TODO: Listen for answers.
   useEffect(() => {
     if (target !== undefined && target >= 100 && !values.includes(undefined)) {
       props.worker?.postChallenge(target, values as Array<number>);
+      setAnswerStatus({
+        kind: AnswerStatusKind.Solving,
+      });
     }
   }, [target, values]);
 
@@ -226,6 +280,7 @@ export default function Solver(props: { worker?: SolveWorker }) {
         values={values}
       />
       <Chooser disabled={isTargetCurrent} onChange={handleChoice} />
+      <Answer status={answerStatus} />
     </div>
   );
 }

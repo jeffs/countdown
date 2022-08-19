@@ -16,6 +16,20 @@
   gap: var(--space);
 }
 
+.solver__answer_content {
+  display: flex;
+  justify-content: center;
+  min-height: 3em;
+}
+
+.solver__answer_content--empty {
+  font-style: italic;
+}
+
+.solver__answer_content--solving {
+  font-style: italic;
+}
+
 .solver__chooser_row {
   display: flex;
   flex-wrap: wrap;
