@@ -1,14 +1,14 @@
 import React from "react";
 
+import SolveWorker from "./SolveWorker";
 import Solver from "./Solver";
-import Wasm from "./Wasm";
 
 import "./App.css";
 
-function App(props: { wasm?: Wasm }) {
+function App(props: { solveWorker?: SolveWorker }) {
   return (
     <main className="app">
-      <Solver wasm={props.wasm} />
+      <Solver worker={props.solveWorker} />
     </main>
   );
 }

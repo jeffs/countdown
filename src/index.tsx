@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import init, * as wasm from "wasm-lib";
 
-init().then(() => {
+import App from "./App";
+import WasmSolveWorker from "./WasmSolveWorker";
+
+import "./index.css";
+
+WasmSolveWorker().then((solveWorker) => {
   const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
   );
   root.render(
     <React.StrictMode>
-      <App wasm={wasm} />
+      <App solveWorker={solveWorker} />
     </React.StrictMode>
   );
 });

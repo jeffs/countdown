@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 
 import Card from "./Card";
-import Wasm from "./Wasm";
+import SolveWorker from "./SolveWorker";
 
 import "./Solver.css";
 
@@ -163,7 +163,7 @@ interface ReceiverTarget {
 // Descriptor indicating which control will receive input.
 type Receiver = ReceiverPlace | ReceiverTarget;
 
-export default function Solver(props: { wasm?: Wasm }) {
+export default function Solver(props: { worker?: SolveWorker }) {
   const [receiver, setReceiver] = useState<Receiver>({
     kind: ReceiverKind.Place,
     id: 0,
@@ -177,7 +177,8 @@ export default function Solver(props: { wasm?: Wasm }) {
 
   useEffect(() => {
     if (target !== undefined && target >= 100) {
-      alert(`${target} * 2 = ${props?.wasm?.add(target, target)}`);
+      // TODO Post target and values to worker.
+      props.worker?.postAdd(target, target);
     }
   }, [target]);
 

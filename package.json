@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:wasm": "cd wasm-lib && wasm-pack build --target web --out-dir pkg",
+    "build:wasm": "cd wasm-lib && wasm-pack build --target no-modules",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
