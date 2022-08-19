@@ -8,19 +8,24 @@ export default async function WasmSolveWorker(): Promise<SolveWorker> {
   // (WasmSolveWorkerImp.js).
   const worker = new Worker("wasm_worker.js", { type: "module" });
 
-  worker.addEventListener("message", ({ data }) => {
-    switch (data.kind) {
-      case "Challenge":
-        console.log(`answer: ${data.answer}`);
-        break;
-      default:
-        console.warn(`${data.kind}: bad response kind`);
-        break;
-    }
-  });
-
   return {
-    postChallenge(target: number, values: Array<number>) {
+    addAnswerListener(
+      listener: (target: number, answer: string) => void
+    ): void {
+      worker.addEventListener("message", ({ data }) => {
+        switch (data.kind) {
+          case "Answer":
+            const { target, answer } = data;
+            listener(target, answer);
+            break;
+          default:
+            console.warn(`${data.kind}: bad response kind`);
+            break;
+        }
+      });
+    },
+
+    postChallenge(target: number, values: Array<number>): void {
       worker.postMessage({ kind: "Challenge", target, values });
     },
   };

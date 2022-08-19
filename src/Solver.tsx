@@ -179,7 +179,7 @@ interface AnswerStatusSolving {
 
 interface AnswerStatusSolved {
   kind: AnswerStatusKind.Solved;
-  answer: number;
+  answer: string; // formula to show in the Answer component
 }
 
 type AnswerStatus =
@@ -210,6 +210,8 @@ function Answer(props: { status: AnswerStatus }) {
 }
 
 export default function Solver(props: { worker?: SolveWorker }) {
+  const { worker } = props;
+
   const [answerStatus, setAnswerStatus] = useState<AnswerStatus>({
     kind: AnswerStatusKind.Empty,
   });
@@ -225,10 +227,21 @@ export default function Solver(props: { worker?: SolveWorker }) {
     Array(PLACE_COUNT).fill(undefined)
   );
 
+  useEffect(() => {
+    if (worker) {
+      worker.addAnswerListener((target, answer) => {
+        setAnswerStatus({
+          kind: AnswerStatusKind.Solved,
+          answer,
+        });
+      });
+    }
+  }, [worker]);
+
   // TODO: Listen for answers.
   useEffect(() => {
     if (target !== undefined && target >= 100 && !values.includes(undefined)) {
-      props.worker?.postChallenge(target, values as Array<number>);
+      worker?.postChallenge(target, values as Array<number>);
       setAnswerStatus({
         kind: AnswerStatusKind.Solving,
       });
