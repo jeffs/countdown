@@ -2,11 +2,12 @@ import SolveWorker from "./SolveWorker";
 
 export default async function WasmSolveWorker(): Promise<SolveWorker> {
   // The { type: "module" } parameter is not yet widely supported as of this
-  // writing.  Once it's supported, we can remove the '--target no-modules' flag
-  // from the wasm-pack command used to build our WebAssembly, and can use an
-  // ordinary import (rather than importScripts) in the worker source file
-  // (WasmSolveWorkerImp.js).
-  const worker = new Worker("wasm_worker.js", { type: "module" });
+  // writing; and in fact, seems to cause mobile browsers to ignore
+  // importScripts calls in the web worker.  Once it's supported, we can remove
+  // the '--target no-modules' flag from the wasm-pack command used to build our
+  // WebAssembly, and can use an ordinary import (rather than importScripts) in
+  // the worker source file (WasmSolveWorkerImp.js).
+  const worker = new Worker("wasm_worker.js" /*, { type: "module" } */);
 
   return {
     addAnswerListener(
