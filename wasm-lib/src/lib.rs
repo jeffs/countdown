@@ -24,7 +24,7 @@ impl Op {
     }
 
     fn apply(self, x: &Expr, y: &Expr) -> Option<Expr> {
-        assert!(x < y);
+        assert!(x <= y);
         match self {
             Op::Div => {
                 let (xv, yv) = (x.value(), y.value());
@@ -148,6 +148,14 @@ pub fn solve(target: i32, values: &[i32]) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// This test exercises the case in which an operation is applied to
+    /// equivalent expressions.  It catches a regression in which the `apply`
+    /// method expected its first argument to be strictly less than its right.
+    #[test]
+    fn test_solve_issue_981() {
+        solve(981, &[50, 100, 6, 7, 6, 8]);
+    }
 
     #[test]
     fn test_solve_trivial() {
