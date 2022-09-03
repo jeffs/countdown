@@ -3,7 +3,11 @@
 use std::cmp::Ordering;
 use std::collections::VecDeque;
 use std::fmt;
+use std::sync::Once;
 use wasm_bindgen::prelude::*;
+
+static mut HEAP: Vec<u8> = Vec::new();
+static START: Once = Once::new();
 
 /// Operations are ordered by decreasing precedence, and secondarily by placing
 /// operations that produce smaller results (division, subtraction) ahead of
@@ -89,6 +93,14 @@ impl fmt::Display for Expr {
 #[wasm_bindgen]
 pub fn solve(target: i32, values: &[i32]) -> String {
     assert!(!values.is_empty(), "Expected values");
+
+    static mut HEAP: Vec<u8> = Vec::new();
+    static START: Once = Once::new();
+
+    START.call_once(|| unsafe {
+        HEAP.reserve(400 * (1 << 20));
+        HEAP.shrink_to_fit();
+    });
 
     // If the first specified value happens to match the target exactly, return
     // it. Otherwise, begin tracking the closest expression found so far, so we
