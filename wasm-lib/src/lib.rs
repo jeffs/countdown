@@ -19,10 +19,6 @@ enum Op {
 }
 
 impl Op {
-    fn apply_add(self, x: &Expr, y: &Expr) -> Option<Expr> {
-        todo!()
-    }
-
     fn apply(self, x: &Expr, y: &Expr) -> Option<Expr> {
         assert!(x <= y);
         match self {
