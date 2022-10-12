@@ -278,6 +278,13 @@ export default function Solver(props: { worker?: SolveWorker }) {
 
   const isTargetCurrent = receiver.kind === ReceiverKind.Target;
 
+  // TODO: Order elements semantically, in order of selection:
+  //
+  //  Chooser (input) and Board (inputs)
+  //  Target (input)
+  //  Answer (output for Board and Target)
+  //
+  // Arrange elements using Flex (colum-reverse)
   return (
     <div className="solver">
       <h1>Solver</h1>

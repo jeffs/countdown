@@ -1,8 +1,7 @@
 # Countdown Numbers Round Solver
 
-# TODO
+This repo was originally called pnp-ts-solver.
 
-* [ ] Implement the solver!
-* [ Improve a11y
-  - [ ] Check in Lighthouse
-  - [ ] Try with VoiceOver
+## TODO
+* [ ] Check accessbility in Lighthouse
+* [ ] Try with VoiceOver
