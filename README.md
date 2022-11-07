@@ -1,7 +1,4 @@
 # Countdown Numbers Round Solver
 
-This repo was originally called pnp-ts-solver.
-
-## TODO
-* [ ] Check accessbility in Lighthouse
-* [ ] Try with VoiceOver
+This repo implements a solver for the Numbers round of the game show Countdown.
+It uses React and TypeScript, and yarn with Plug n Play (PnP).
